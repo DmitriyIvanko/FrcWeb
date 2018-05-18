@@ -31,13 +31,29 @@ export class AppComponent {
     }
 
     public getPicture() {
-      this.request().subscribe((result) => {
-        debugger;
-      })
+      // this.request().subscribe((result) => {
+      //   debugger;
+      // })
 
-      this.webcam.getBase64()
-        .then((base64) => {
-          this.picture = base64;
-        });
+      // this.webcam.getBase64()
+      //   .then((base64) => {
+      //     this.picture = base64;
+      //   });
+
+      this.webcam.captureAsFormData({ fileName: 'file.jpg' })
+        .then(formData => this.postFormData(formData))
+        .catch(e => console.error(e));
+    }
+
+    public postFormData(formData) {
+      const config = {
+        method: "post",
+        url: "http://localhost:1752/api/login/sign-in",
+        body: formData
+      }
+
+      const request = new Request(config)
+
+      return this.http.request(request).subscribe()
     }
 }
