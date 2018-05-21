@@ -1,1 +1,5 @@
 Admin Page
+<div *ngFor="let frs of frsList$ | async">
+  <div>{{ frs.id }}</div>
+  <div>{{ frs.md }}</div>
+</div>
